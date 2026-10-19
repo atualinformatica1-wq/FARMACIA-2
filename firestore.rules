@@ -1,0 +1,115 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidProduct(data) {
+      return data.keys().hasAll(['id', 'name', 'category', 'price', 'image', 'inStock', 'requiresPrescription']) &&
+        data.id is string && data.id.size() <= 100 &&
+        data.name is string && data.name.size() <= 200 &&
+        data.category is string && data.category.size() <= 100 &&
+        data.price is number && data.price >= 0 &&
+        data.image is string && data.image.size() <= 500000 &&
+        data.inStock is bool &&
+        data.requiresPrescription is bool;
+    }
+
+    function isValidOrder(data) {
+      return data.keys().hasAll([
+          'id', 'orderNumber', 'createdAt', 'customerName', 'customerPhone',
+          'fulfillmentType', 'paymentMethodId', 'items', 'subtotal', 'total',
+          'status', 'paymentStatus'
+        ]) &&
+        data.id is string && data.id.size() <= 100 &&
+        data.orderNumber is string && data.orderNumber.size() <= 50 &&
+        data.createdAt is string && data.createdAt.size() <= 50 &&
+        data.customerName is string && data.customerName.size() <= 150 &&
+        data.customerPhone is string && data.customerPhone.size() <= 30 &&
+        data.fulfillmentType in ['delivery', 'pickup'] &&
+        data.paymentMethodId is string && data.paymentMethodId.size() <= 50 &&
+        data.items is list && data.items.size() > 0 && data.items.size() <= 100 &&
+        data.subtotal is number && data.subtotal >= 0 &&
+        data.total is number && data.total >= 0 &&
+        data.status in ['pending', 'preparing', 'waiting_payment', 'out_for_delivery', 'ready_for_pickup', 'completed', 'cancelled'] &&
+        data.paymentStatus in ['pending', 'paid', 'pay_on_delivery'];
+    }
+
+    // Admins registry
+    match /admins/{adminId} {
+      allow read, write: if isValidId(adminId);
+    }
+
+    // Products catalog (Store 1: /products, Store 2: /f2_products)
+    match /products/{productId} {
+      allow get, list: if true;
+      allow create, update: if isValidId(productId) && isValidProduct(incoming());
+      allow delete: if isValidId(productId);
+    }
+    match /f2_products/{productId} {
+      allow get, list: if true;
+      allow create, update: if isValidId(productId) && isValidProduct(incoming());
+      allow delete: if isValidId(productId);
+    }
+
+    // Categories catalog (Store 1: /categories, Store 2: /f2_categories)
+    match /categories/{categoryId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(categoryId);
+    }
+    match /f2_categories/{categoryId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(categoryId);
+    }
+
+    // Hero carousel banners (Store 1: /banners, Store 2: /f2_banners)
+    match /banners/{bannerId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(bannerId);
+    }
+    match /f2_banners/{bannerId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(bannerId);
+    }
+
+    // Store settings (Store 1: /settings, Store 2: /f2_settings)
+    match /settings/{settingId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(settingId);
+    }
+    match /f2_settings/{settingId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(settingId);
+    }
+
+    // Customer orders (Store 1: /orders, Store 2: /f2_orders)
+    match /orders/{orderId} {
+      allow list, get: if isValidId(orderId) || true;
+      allow create: if isValidId(orderId) && isValidOrder(incoming());
+      allow update: if isValidId(orderId) && isValidOrder(incoming()) && incoming().id == existing().id;
+      allow delete: if isValidId(orderId);
+    }
+    match /f2_orders/{orderId} {
+      allow list, get: if isValidId(orderId) || true;
+      allow create: if isValidId(orderId) && isValidOrder(incoming());
+      allow update: if isValidId(orderId) && isValidOrder(incoming()) && incoming().id == existing().id;
+      allow delete: if isValidId(orderId);
+    }
+  }
+}

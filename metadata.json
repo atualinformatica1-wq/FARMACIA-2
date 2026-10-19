@@ -1,0 +1,8 @@
+{
+  "name": "Farmácia Vida & Saúde - Catálogo e Pedidos Online",
+  "description": "Farmácia completa com catálogo online, pedidos direto no WhatsApp, cálculo de entrega/retirada, opções de pagamento Pix e cartão, e painel administrativo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Pharmacy product for sale in the catalog",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 100, "description": "Unique product ID" },
+        "name": { "type": "string", "maxLength": 200, "description": "Product name" },
+        "description": { "type": "string", "maxLength": 2000, "description": "Detailed description" },
+        "category": { "type": "string", "maxLength": 100, "description": "Category slug or ID" },
+        "price": { "type": "number", "description": "Regular unit price in BRL" },
+        "promotionalPrice": { "type": "number", "description": "Promotional unit price in BRL" },
+        "image": { "type": "string", "maxLength": 500000, "description": "Product image URL or data URI" },
+        "inStock": { "type": "boolean", "description": "Stock availability flag" },
+        "stockQuantity": { "type": "number", "description": "Available stock units" },
+        "requiresPrescription": { "type": "boolean", "description": "Whether medical prescription is mandatory" },
+        "prescriptionType": { "type": "string", "enum": ["nenhuma", "simples", "controlada", "antibiotico"], "description": "Type of prescription required" },
+        "dosageOrVolume": { "type": "string", "maxLength": 100, "description": "Packaging info e.g. 20 comprimidos" },
+        "manufacturer": { "type": "string", "maxLength": 100, "description": "Laboratory or manufacturer name" },
+        "isFeatured": { "type": "boolean", "description": "Highlighted on home page" },
+        "activeIngredient": { "type": "string", "maxLength": 150, "description": "Pharmacological active compound" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last update timestamp" }
+      },
+      "required": ["id", "name", "category", "price", "image", "inStock", "requiresPrescription"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category definition",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 100, "description": "Category identifier" },
+        "name": { "type": "string", "maxLength": 100, "description": "Category display name" },
+        "slug": { "type": "string", "maxLength": 100, "description": "Category slug" },
+        "iconName": { "type": "string", "maxLength": 50, "description": "Lucide icon name" },
+        "description": { "type": "string", "maxLength": 500, "description": "Short category description" }
+      },
+      "required": ["id", "name", "slug", "iconName"]
+    },
+    "CarouselBanner": {
+      "title": "CarouselBanner",
+      "description": "Promotional banner shown on top carousel",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 100, "description": "Unique banner ID" },
+        "title": { "type": "string", "maxLength": 150, "description": "Banner main title" },
+        "subtitle": { "type": "string", "maxLength": 250, "description": "Banner subtitle" },
+        "imageUrl": { "type": "string", "maxLength": 500000, "description": "Banner background image URL" },
+        "buttonText": { "type": "string", "maxLength": 50, "description": "CTA button text" },
+        "categoryFilter": { "type": "string", "maxLength": 100, "description": "Category slug to filter on click" },
+        "discountBadge": { "type": "string", "maxLength": 50, "description": "Badge label e.g. ATE 40% OFF" },
+        "active": { "type": "boolean", "description": "Whether banner is displayed" }
+      },
+      "required": ["id", "title", "subtitle", "imageUrl", "buttonText", "active"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Pharmacy customer order",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 100, "description": "Order unique identifier" },
+        "orderNumber": { "type": "string", "maxLength": 50, "description": "Human readable order code" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Order creation timestamp" },
+        "customerName": { "type": "string", "maxLength": 150, "description": "Customer full name" },
+        "customerPhone": { "type": "string", "maxLength": 30, "description": "Customer contact phone" },
+        "customerCpf": { "type": "string", "maxLength": 20, "description": "Customer CPF tax ID" },
+        "fulfillmentType": { "type": "string", "enum": ["delivery", "pickup"], "description": "Delivery method" },
+        "deliveryAddress": { "type": "object", "description": "Customer delivery destination address" },
+        "paymentMethodId": { "type": "string", "maxLength": 50, "description": "Selected payment method ID" },
+        "paymentMethodName": { "type": "string", "maxLength": 100, "description": "Selected payment method label" },
+        "cashChangeFor": { "type": "number", "description": "Change amount needed for cash payment" },
+        "items": { "type": "array", "description": "List of ordered items" },
+        "subtotal": { "type": "number", "description": "Sum of items prices" },
+        "deliveryFee": { "type": "number", "description": "Applied shipping fee" },
+        "total": { "type": "number", "description": "Total order amount" },
+        "notes": { "type": "string", "maxLength": 1000, "description": "Additional order instructions" },
+        "hasPrescriptionItems": { "type": "boolean", "description": "Flag indicating prescription requirement" },
+        "prescriptionAcknowledged": { "type": "boolean", "description": "Customer acknowledged prescription term" },
+        "status": { "type": "string", "enum": ["pending", "preparing", "waiting_payment", "out_for_delivery", "ready_for_pickup", "completed", "cancelled"], "description": "Current order state" },
+        "paymentStatus": { "type": "string", "enum": ["pending", "paid", "pay_on_delivery"], "description": "Payment state" }
+      },
+      "required": ["id", "orderNumber", "createdAt", "customerName", "customerPhone", "fulfillmentType", "paymentMethodId", "items", "subtotal", "total", "status", "paymentStatus"]
+    },
+    "Setting": {
+      "title": "Setting",
+      "description": "Pharmacy store configuration documents (pharmacy, delivery, payment_methods)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 100, "description": "Setting key identifier" },
+        "data": { "type": "object", "description": "Arbitrary key-value configuration payload" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Timestamp of update" }
+      },
+      "required": ["id"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Authorized administrator user profile",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 150, "description": "Admin email address" },
+        "role": { "type": "string", "enum": ["admin"], "description": "Role string" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Account authorization date" }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Public catalog products"
+    },
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Public catalog categories"
+    },
+    "/banners/{bannerId}": {
+      "schema": { "$ref": "#/entities/CarouselBanner" },
+      "description": "Store hero carousel banners"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Customer purchase orders"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/Setting" },
+      "description": "Store settings including pharmacy info, delivery settings, and payment methods with Pix QR code"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "Admin role registry"
+    }
+  }
+}
