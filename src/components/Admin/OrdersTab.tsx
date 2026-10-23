@@ -213,10 +213,10 @@ export const OrdersTab: React.FC = () => {
 
                         <button
                           onClick={() => openWhatsAppWithCustomer(order)}
-                          className="p-1.5 text-emerald-600 hover:text-emerald-800 hover:bg-emerald-50 rounded-lg transition-colors"
+                          className="p-1.5 text-[#25D366] hover:text-[#20ba5a] hover:bg-green-50 rounded-lg transition-colors cursor-pointer"
                           title="Falar com cliente pelo WhatsApp"
                         >
-                          <MessageCircle className="w-4 h-4" />
+                          <MessageCircle className="w-4 h-4 fill-[#25D366]/20" />
                         </button>
 
                         <button

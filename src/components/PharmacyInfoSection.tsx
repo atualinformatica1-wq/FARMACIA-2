@@ -99,9 +99,9 @@ export const PharmacyInfoSection: React.FC = () => {
                 href={`https://wa.me/${pharmacyInfo.whatsappNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1"
+                className="font-bold text-[#16a34a] hover:text-[#15803d] flex items-center gap-1 transition-colors"
               >
-                <MessageCircle className="w-3.5 h-3.5" />
+                <MessageCircle className="w-3.5 h-3.5 text-[#25D366] fill-[#25D366]/20" />
                 <span>WhatsApp</span>
               </a>
             </div>

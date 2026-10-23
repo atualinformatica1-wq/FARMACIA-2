@@ -293,9 +293,10 @@ export const TrackOrderModal: React.FC = () => {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-xs transition-colors"
+                style={{ backgroundColor: '#25D366', color: '#ffffff' }}
+                className="w-full hover:bg-[#20ba5a] text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-xs transition-colors shadow-xs cursor-pointer"
               >
-                <MessageCircle className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4 text-white fill-white/20" />
                 <span>Falar com o Farmacêutico sobre este Pedido</span>
               </a>
             </div>

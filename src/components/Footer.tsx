@@ -60,8 +60,15 @@ export const Footer: React.FC = () => {
                 <span>{pharmacyInfo.phone}</span>
               </li>
               <li className="flex items-center gap-2">
-                <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
-                <span>WhatsApp: {pharmacyInfo.whatsappDisplay}</span>
+                <a
+                  href={`https://wa.me/${pharmacyInfo.whatsappNumber}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 text-[#25D366] fill-[#25D366]/20" />
+                  <span>WhatsApp: {pharmacyInfo.whatsappDisplay}</span>
+                </a>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />

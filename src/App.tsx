@@ -15,6 +15,7 @@ import { TrackOrderModal } from './components/TrackOrderModal';
 import { AdminLoginModal } from './components/Admin/AdminLoginModal';
 import { AdminDashboard } from './components/Admin/AdminDashboard';
 import { FloatingCartBar } from './components/FloatingCartBar';
+import { FloatingWhatsAppButton } from './components/FloatingWhatsAppButton';
 
 const PharmacyMainView: React.FC = () => {
   const { isAdminViewOpen } = usePharmacy();
@@ -41,6 +42,7 @@ const PharmacyMainView: React.FC = () => {
       <TrackOrderModal />
       <AdminLoginModal />
       <FloatingCartBar />
+      <FloatingWhatsAppButton />
 
       {/* Admin Full View */}
       {isAdminViewOpen && <AdminDashboard />}

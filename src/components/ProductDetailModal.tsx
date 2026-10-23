@@ -229,11 +229,11 @@ export const ProductDetailModal: React.FC = () => {
               <button
                 type="button"
                 onClick={handleBuyNow}
-                style={{ backgroundColor: '#0f172a', color: '#ffffff', minHeight: '44px' }}
-                className="flex bg-slate-900 hover:bg-slate-800 active:scale-[0.98] text-white font-bold h-11 px-4 rounded-xl text-xs sm:text-sm items-center justify-center gap-2 transition-colors cursor-pointer shrink-0"
+                style={{ backgroundColor: '#25D366', color: '#ffffff', minHeight: '44px' }}
+                className="flex hover:bg-[#20ba5a] active:scale-[0.98] text-white font-black h-11 px-4 rounded-xl text-xs sm:text-sm items-center justify-center gap-2 transition-colors cursor-pointer shrink-0 shadow-sm"
                 title="Concluir venda agora e enviar pedido pelo WhatsApp"
               >
-                <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                <MessageCircle className="w-4 h-4 text-white shrink-0 fill-white/20" />
                 <span className="text-white font-bold">Concluir no WhatsApp</span>
               </button>
             </div>

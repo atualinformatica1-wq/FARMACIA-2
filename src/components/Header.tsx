@@ -88,7 +88,8 @@ export const Header: React.FC = () => {
               href={`https://wa.me/${pharmacyInfo.whatsappNumber}?text=${encodeURIComponent('Olá! Gostaria de tirar uma dúvida.')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 px-3 py-1 rounded-lg text-white font-extrabold text-xs sm:text-sm transition-all shadow-sm border border-emerald-400/40"
+              style={{ backgroundColor: '#25D366', color: '#ffffff' }}
+              className="inline-flex items-center gap-1.5 hover:bg-[#20ba5a] active:scale-95 px-3 py-1 rounded-lg text-white font-extrabold text-xs sm:text-sm transition-all shadow-sm border border-white/20 cursor-pointer"
               title="Fale conosco direto pelo WhatsApp"
             >
               <MessageCircle className="w-4 h-4 text-white shrink-0 fill-white/20" />

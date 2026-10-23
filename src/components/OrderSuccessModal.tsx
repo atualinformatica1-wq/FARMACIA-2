@@ -90,9 +90,10 @@ export const OrderSuccessModal: React.FC = () => {
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold py-3.5 px-4 rounded-xl shadow-md flex items-center justify-center gap-2 text-sm sm:text-base transition-all"
+              style={{ backgroundColor: '#25D366', color: '#ffffff' }}
+              className="w-full hover:bg-[#20ba5a] active:scale-95 text-white font-bold py-3.5 px-4 rounded-xl shadow-md flex items-center justify-center gap-2 text-sm sm:text-base transition-all cursor-pointer"
             >
-              <MessageCircle className="w-5 h-5" />
+              <MessageCircle className="w-5 h-5 text-white fill-white/20" />
               <span>Abrir Conversa no WhatsApp</span>
             </a>
 
