@@ -26,6 +26,8 @@ export interface Category {
   description?: string;
 }
 
+export type ThemeColorPreset = 'emerald' | 'blue' | 'red' | 'cyan' | 'purple' | 'orange';
+
 export interface PharmacyInfo {
   name: string;
   tagline: string;
@@ -47,6 +49,8 @@ export interface PharmacyInfo {
   openingHoursSaturday: string;
   openingHoursSunday: string;
   prescriptionNotice: string;
+  themePreset?: ThemeColorPreset;
+  primaryColorHex?: string;
 }
 
 export interface DeliverySettings {

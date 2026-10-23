@@ -191,7 +191,7 @@ export const ProductDetailModal: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                    style={{ backgroundColor: '#059669', color: '#ffffff' }}
+                    style={{ backgroundColor: 'var(--color-emerald-600, #059669)', color: '#ffffff' }}
                     className="w-8 h-8 rounded-lg bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white flex items-center justify-center font-bold disabled:opacity-40 transition-colors cursor-pointer"
                     disabled={quantity <= 1}
                     aria-label="Diminuir quantidade"
@@ -202,7 +202,7 @@ export const ProductDetailModal: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setQuantity((q) => q + 1)}
-                    style={{ backgroundColor: '#059669', color: '#ffffff' }}
+                    style={{ backgroundColor: 'var(--color-emerald-600, #059669)', color: '#ffffff' }}
                     className="w-8 h-8 rounded-lg bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white flex items-center justify-center font-bold transition-colors cursor-pointer"
                     aria-label="Aumentar quantidade"
                   >
@@ -214,7 +214,7 @@ export const ProductDetailModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleAdd(true)}
-                  style={{ backgroundColor: '#059669', color: '#ffffff', minHeight: '44px' }}
+                  style={{ backgroundColor: 'var(--color-emerald-600, #059669)', color: '#ffffff', minHeight: '44px' }}
                   className="flex-1 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-black h-11 px-3 sm:px-4 rounded-xl shadow-md flex items-center justify-center gap-1.5 text-xs sm:text-sm transition-all cursor-pointer"
                 >
                   <ShoppingBag className="w-4 h-4 shrink-0 text-white" />

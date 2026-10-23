@@ -162,7 +162,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 setIsCheckoutOpen(true);
               }}
               style={{
-                backgroundColor: !product.inStock ? '#f1f5f9' : '#047857',
+                backgroundColor: !product.inStock ? '#f1f5f9' : 'var(--color-emerald-700, #047857)',
                 color: !product.inStock ? '#94a3b8' : '#ffffff',
               }}
               className={`flex-1 flex items-center justify-center gap-1 py-2 px-2 text-xs font-bold rounded-xl transition-all h-9 ${
@@ -185,7 +185,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 <button
                   type="button"
                   onClick={() => updateCartQuantity(product.id, cartItem.quantity - 1)}
-                  style={{ backgroundColor: '#059669', color: '#ffffff' }}
+                  style={{ backgroundColor: 'var(--color-emerald-600, #059669)', color: '#ffffff' }}
                   className="w-6 h-6 flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 active:scale-90 text-white rounded-lg font-black transition-transform cursor-pointer"
                   title="Diminuir"
                 >
@@ -197,7 +197,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 <button
                   type="button"
                   onClick={() => updateCartQuantity(product.id, cartItem.quantity + 1)}
-                  style={{ backgroundColor: '#059669', color: '#ffffff' }}
+                  style={{ backgroundColor: 'var(--color-emerald-600, #059669)', color: '#ffffff' }}
                   className="w-6 h-6 flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 active:scale-90 text-white rounded-lg font-black transition-transform cursor-pointer"
                   title="Aumentar"
                 >
@@ -211,7 +211,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 disabled={!product.inStock}
                 onClick={handleAddToCart}
                 style={{
-                  backgroundColor: !product.inStock ? '#f1f5f9' : justAdded ? '#047857' : '#059669',
+                  backgroundColor: !product.inStock ? '#f1f5f9' : justAdded ? 'var(--color-emerald-700, #047857)' : 'var(--color-emerald-600, #059669)',
                   color: !product.inStock ? '#94a3b8' : '#ffffff',
                 }}
                 className={`flex-1 flex items-center justify-center gap-1 py-2 px-2 text-xs font-bold rounded-xl transition-all h-9 ${

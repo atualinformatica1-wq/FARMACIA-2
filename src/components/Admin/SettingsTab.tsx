@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePharmacy } from '../../context/PharmacyContext';
+import { THEME_PRESETS, ThemeColorPreset, applyTheme } from '../../utils/theme';
 import {
   Store,
   Phone,
@@ -10,7 +11,9 @@ import {
   Check,
   KeyRound,
   RotateCcw,
-  AlertTriangle
+  AlertTriangle,
+  Palette,
+  Sparkles
 } from 'lucide-react';
 
 export const SettingsTab: React.FC = () => {
@@ -27,8 +30,34 @@ export const SettingsTab: React.FC = () => {
   const [passwordFeedback, setPasswordFeedback] = useState<string | null>(null);
   const [savedSuccess, setSavedSuccess] = useState(false);
 
-  const handleChange = (field: keyof typeof pharmacyInfo, value: string) => {
+  useEffect(() => {
+    setFormData(pharmacyInfo);
+  }, [pharmacyInfo]);
+
+  const handleChange = (field: keyof typeof pharmacyInfo, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSelectPreset = (preset: typeof THEME_PRESETS[0]) => {
+    const updated = {
+      ...formData,
+      themePreset: preset.id,
+      primaryColorHex: preset.primaryHex,
+    };
+    setFormData(updated);
+    // Instant preview across the app
+    applyTheme(preset.id, preset.primaryHex);
+  };
+
+  const handleCustomColorChange = (hex: string) => {
+    const updated = {
+      ...formData,
+      primaryColorHex: hex,
+    };
+    setFormData(updated);
+    if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
+      applyTheme(formData.themePreset, hex);
+    }
   };
 
   const handleSaveInfo = (e: React.FormEvent) => {
@@ -66,6 +95,149 @@ export const SettingsTab: React.FC = () => {
 
       {/* Main Pharmacy Info Form */}
       <form onSubmit={handleSaveInfo} className="space-y-6">
+        {/* Identidade Visual & Cores da Loja */}
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-5">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100 flex-wrap gap-2">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+                <Palette className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-bold text-slate-900 text-sm">
+                    Identidade Visual & Cores da Loja
+                  </h3>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 uppercase tracking-wider">
+                    Novo
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500">
+                  Personalize a cor predominante do site (botões, carrinho, badges, destaques e preços)
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-1.5 text-xs text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <span>Preview em tempo real</span>
+            </div>
+          </div>
+
+          {/* Presets Grid */}
+          <div>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Temas Pré-definidos
+            </label>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+              {THEME_PRESETS.map((preset) => {
+                const isSelected =
+                  formData.themePreset === preset.id &&
+                  (!formData.primaryColorHex || formData.primaryColorHex.toLowerCase() === preset.primaryHex.toLowerCase());
+
+                return (
+                  <button
+                    key={preset.id}
+                    type="button"
+                    onClick={() => handleSelectPreset(preset)}
+                    className={`relative p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between h-28 group ${
+                      isSelected
+                        ? 'border-slate-900 ring-2 ring-slate-900/10 shadow-sm bg-slate-50/80'
+                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50/50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span
+                        className="w-7 h-7 rounded-lg shadow-sm border border-black/10 flex items-center justify-center"
+                        style={{ backgroundColor: preset.primaryHex }}
+                      >
+                        {isSelected && <Check className="w-4 h-4 text-white stroke-[3]" />}
+                      </span>
+                      {isSelected && (
+                        <span className="text-[10px] font-black text-slate-900 uppercase tracking-wider">
+                          Ativo
+                        </span>
+                      )}
+                    </div>
+                    <div>
+                      <p className="font-bold text-slate-900 text-xs truncate">
+                        {preset.name}
+                      </p>
+                      <p className="text-[10px] text-slate-500 truncate leading-tight mt-0.5" title={preset.description}>
+                        {preset.description}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Custom Color Selector & Live Preview Box */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+            {/* Custom Hex Selector */}
+            <div className="space-y-2">
+              <label className="block text-xs font-bold text-slate-700">
+                Ou use uma Cor Personalizada (Hexadecimal)
+              </label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="color"
+                  value={formData.primaryColorHex || '#059669'}
+                  onChange={(e) => handleCustomColorChange(e.target.value)}
+                  className="w-10 h-10 rounded-xl cursor-pointer border border-slate-200 p-0.5 bg-white shrink-0"
+                  title="Clique para escolher qualquer cor personalizada"
+                />
+                <input
+                  type="text"
+                  placeholder="#059669"
+                  maxLength={7}
+                  value={formData.primaryColorHex || ''}
+                  onChange={(e) => handleCustomColorChange(e.target.value)}
+                  className="w-32 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono font-bold text-slate-800 uppercase focus:bg-white focus:outline-none focus:border-emerald-500"
+                />
+                <button
+                  type="button"
+                  onClick={() => handleSelectPreset(THEME_PRESETS[0])}
+                  className="text-[11px] font-semibold text-slate-500 hover:text-slate-800 px-2 py-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                >
+                  Restaurar Verde Padrão
+                </button>
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Digite o código hexadecimal da sua marca ou use o seletor acima para testar qualquer cor.
+              </p>
+            </div>
+
+            {/* Live Visual Element Preview */}
+            <div className="bg-slate-50 rounded-xl p-3 border border-slate-200/80 space-y-2">
+              <span className="text-[11px] font-bold text-slate-600 block">
+                Demonstração dos Elementos na Loja:
+              </span>
+              <div className="flex flex-wrap items-center gap-2.5">
+                {/* Botão de Exemplo */}
+                <button
+                  type="button"
+                  style={{ backgroundColor: 'var(--color-emerald-600, #059669)' }}
+                  className="text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-xs flex items-center gap-1.5 pointer-events-none"
+                >
+                  <Store className="w-3.5 h-3.5 text-white" />
+                  <span>Botão Principal</span>
+                </button>
+
+                {/* Badge de Exemplo */}
+                <span className="bg-emerald-100 text-emerald-800 border border-emerald-200 text-[11px] font-black px-2.5 py-1 rounded-full">
+                  Badge de Oferta
+                </span>
+
+                {/* Preço de Exemplo */}
+                <span className="text-emerald-700 font-black text-sm">
+                  R$ 39,90
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Identificação & Contatos */}
         <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-4">
           <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">

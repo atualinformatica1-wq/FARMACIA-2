@@ -621,7 +621,7 @@ export const CheckoutModal: React.FC = () => {
           <button
             type="button"
             onClick={() => handleSubmitOrder()}
-            style={{ backgroundColor: '#059669', color: '#ffffff', minHeight: '48px' }}
+            style={{ backgroundColor: 'var(--color-emerald-600, #059669)', color: '#ffffff', minHeight: '48px' }}
             className="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-black py-3.5 px-4 rounded-xl shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base transition-all cursor-pointer"
           >
             <MessageCircle className="w-5 h-5 shrink-0 text-white" />

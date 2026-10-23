@@ -178,7 +178,7 @@ export const CartDrawer: React.FC = () => {
                           </span>
                           <button
                             onClick={() => updateCartQuantity(item.product.id, item.quantity + 1)}
-                            style={{ backgroundColor: '#059669', color: '#ffffff' }}
+                            style={{ backgroundColor: 'var(--color-emerald-600, #059669)', color: '#ffffff' }}
                             className="w-6 h-6 flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-md transition-all cursor-pointer"
                             title="Aumentar"
                           >
@@ -230,7 +230,7 @@ export const CartDrawer: React.FC = () => {
               <button
                 type="button"
                 onClick={handleProceedToCheckout}
-                style={{ backgroundColor: '#059669', color: '#ffffff' }}
+                style={{ backgroundColor: 'var(--color-emerald-600, #059669)', color: '#ffffff' }}
                 className="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-black py-3.5 px-4 rounded-xl shadow-lg flex items-center justify-center gap-2 text-sm transition-all cursor-pointer"
               >
                 <span className="text-white font-black">Concluir Venda e Enviar Pedido</span>

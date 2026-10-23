@@ -31,7 +31,7 @@ export const FloatingCartBar: React.FC = () => {
 
         <button
           onClick={() => setIsCheckoutOpen(true)}
-          style={{ backgroundColor: '#059669', color: '#ffffff' }}
+          style={{ backgroundColor: 'var(--color-emerald-600, #059669)', color: '#ffffff' }}
           className="bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl flex items-center gap-2 shadow-lg transition-all shrink-0 cursor-pointer"
         >
           <MessageCircle className="w-4 h-4 text-white" />

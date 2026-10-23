@@ -325,7 +325,9 @@ export const INITIAL_PHARMACY_INFO: PharmacyInfo = {
   openingHoursWeekdays: 'Segunda a Sexta: 07h às 22h',
   openingHoursSaturday: 'Sábados: 08h às 20h',
   openingHoursSunday: 'Domingos e Feriados: 08h às 18h',
-  prescriptionNotice: 'Medicamentos controlados e antibióticos só serão liberados mediante apresentação e retenção da receita médica válida no momento da entrega ou retirada, conforme legislação da ANVISA.'
+  prescriptionNotice: 'Medicamentos controlados e antibióticos só serão liberados mediante apresentação e retenção da receita médica válida no momento da entrega ou retirada, conforme legislação da ANVISA.',
+  themePreset: 'emerald',
+  primaryColorHex: '#059669',
 };
 
 export const INITIAL_DELIVERY_SETTINGS: DeliverySettings = {

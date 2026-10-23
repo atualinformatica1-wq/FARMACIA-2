@@ -38,6 +38,7 @@ import {
 } from '../data/initialData';
 import { generateOrderNumber } from '../utils/formatters';
 import { db, auth, handleFirestoreError, OperationType } from '../firebase';
+import { applyTheme } from '../utils/theme';
 
 const ADMIN_EMAIL = 'atualinformatica1@gmail.com';
 
@@ -240,6 +241,11 @@ export const PharmacyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       console.warn('Could not save admin pass to localStorage', e);
     }
   }, [adminPassword]);
+
+  // Dynamically apply brand color theme across entire application
+  useEffect(() => {
+    applyTheme(pharmacyInfo.themePreset, pharmacyInfo.primaryColorHex);
+  }, [pharmacyInfo.themePreset, pharmacyInfo.primaryColorHex]);
 
   // Track Firebase Auth state
   useEffect(() => {

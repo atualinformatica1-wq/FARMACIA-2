@@ -221,7 +221,7 @@ export const FeaturedCarousel: React.FC = () => {
                           addToCart(product, 1);
                           setIsCheckoutOpen(true);
                         }}
-                        style={{ backgroundColor: '#047857', color: '#ffffff' }}
+                        style={{ backgroundColor: 'var(--color-emerald-700, #047857)', color: '#ffffff' }}
                         className="flex items-center justify-center gap-1 py-2 px-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
                         title="Comprar agora"
                       >
@@ -236,7 +236,7 @@ export const FeaturedCarousel: React.FC = () => {
                           handleQuickAdd(product);
                         }}
                         style={{
-                          backgroundColor: addedNoticeId === product.id ? '#047857' : '#059669',
+                          backgroundColor: addedNoticeId === product.id ? 'var(--color-emerald-700, #047857)' : 'var(--color-emerald-600, #059669)',
                           color: '#ffffff',
                         }}
                         className={`flex items-center justify-center gap-1 py-2 px-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
