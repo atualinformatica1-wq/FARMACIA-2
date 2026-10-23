@@ -173,21 +173,35 @@ export const Header: React.FC = () => {
             {/* Shopping Cart Button */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white px-3.5 py-2 rounded-lg font-medium shadow-sm transition-all"
+              style={{ backgroundColor: 'var(--color-emerald-600, #059669)' }}
+              className="relative flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white px-3.5 py-2 rounded-xl font-medium shadow-sm transition-all border border-emerald-400/40 cursor-pointer"
               aria-label="Abrir carrinho de compras"
+              title={cartCount > 0 ? `${cartCount} itens no carrinho` : 'Carrinho de compras (Vazio)'}
             >
-              <div className="relative">
-                <ShoppingBag className="w-4 h-4" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2.5 -right-2.5 bg-amber-500 text-slate-900 font-extrabold text-[11px] w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-xs animate-in zoom-in-75">
+              <div className="relative shrink-0">
+                <ShoppingBag className="w-4 h-4 text-white" />
+                {cartCount > 0 ? (
+                  <span className="absolute -top-2.5 -right-2.5 bg-amber-400 text-slate-950 font-black text-[10px] w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-xs animate-in zoom-in-75">
                     {cartCount}
+                  </span>
+                ) : (
+                  <span className="absolute -top-2 -right-2.5 bg-emerald-950/85 text-emerald-100 font-extrabold text-[9px] min-w-4 h-4 px-1 rounded-full flex items-center justify-center border border-emerald-300/70 shadow-xs">
+                    0
                   </span>
                 )}
               </div>
               <div className="hidden sm:flex flex-col text-left leading-none">
-                <span className="text-[10px] text-emerald-100 font-normal uppercase tracking-wider">Carrinho</span>
-                <span className="text-xs font-bold text-white">
-                  {cartCount > 0 ? formatCurrency(cartSubtotal) : 'Vazio'}
+                <span className="text-[10px] text-emerald-100 font-semibold uppercase tracking-wider">
+                  Carrinho
+                </span>
+                <span className="text-xs font-black text-white flex items-center gap-1 mt-0.5">
+                  {cartCount > 0 ? (
+                    formatCurrency(cartSubtotal)
+                  ) : (
+                    <span className="text-white font-bold bg-white/20 px-1.5 py-0.5 rounded text-[10px] tracking-wide">
+                      Vazio · R$ 0,00
+                    </span>
+                  )}
                 </span>
               </div>
             </button>

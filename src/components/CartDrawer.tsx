@@ -109,20 +109,22 @@ export const CartDrawer: React.FC = () => {
           <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 divide-y divide-slate-100">
             {cart.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
-                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-3 text-slate-300">
+                <div className="w-16 h-16 bg-emerald-50 border border-emerald-200/80 rounded-2xl flex items-center justify-center mb-3 text-emerald-600 shadow-xs">
                   <ShoppingBag className="w-8 h-8" />
                 </div>
-                <h4 className="font-bold text-slate-700 text-base mb-1">
+                <h4 className="font-extrabold text-slate-900 text-base mb-1">
                   Seu carrinho está vazio
                 </h4>
-                <p className="text-xs text-slate-500 max-w-xs mb-6">
+                <p className="text-xs text-slate-500 max-w-xs mb-5">
                   Navegue pelo nosso catálogo de medicamentos e produtos de cuidados e adicione seus itens.
                 </p>
                 <button
+                  type="button"
                   onClick={() => setIsCartOpen(false)}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 px-5 rounded-xl transition-colors cursor-pointer"
+                  style={{ backgroundColor: 'var(--color-emerald-600, #059669)', color: '#ffffff' }}
+                  className="bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-bold py-2.5 px-5 rounded-xl transition-colors cursor-pointer shadow-xs"
                 >
-                  Explorar Catálogo
+                  Explorar Catálogo de Ofertas
                 </button>
               </div>
             ) : (
